@@ -13,13 +13,13 @@ interface AppointmentHistoryProps {
 
 const AppointmentHistory = ({ userId }: AppointmentHistoryProps) => {
   const { getStudentAppointments } = useAppointments();
-  const [month, setMonth] = useState<string>('');
+  const [month, setMonth] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
   const allAppointments = getStudentAppointments(userId);
 
   // Filter appointments by month
-  const filteredByMonth = month
+  const filteredByMonth = month !== 'all'
     ? allAppointments.filter((appointment) => {
         const appointmentDate = new Date(appointment.date);
         return appointmentDate.getMonth() === parseInt(month) - 1;
@@ -46,7 +46,7 @@ const AppointmentHistory = ({ userId }: AppointmentHistoryProps) => {
               <SelectValue placeholder="All months" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All months</SelectItem>
+              <SelectItem value="all">All months</SelectItem>
               <SelectItem value="1">January</SelectItem>
               <SelectItem value="2">February</SelectItem>
               <SelectItem value="3">March</SelectItem>

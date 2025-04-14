@@ -19,7 +19,7 @@ const TeacherDashboard = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('dashboard');
   const [searchQuery, setSearchQuery] = useState('');
-  const [studentFilter, setStudentFilter] = useState('');
+  const [studentFilter, setStudentFilter] = useState('all');
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [studentNames, setStudentNames] = useState<string[]>([]);
 
@@ -52,7 +52,7 @@ const TeacherDashboard = () => {
 
   // Filter appointments by student name and search query
   const filteredAppointments = appointments.filter((appointment) => {
-    const matchesStudent = studentFilter 
+    const matchesStudent = studentFilter !== 'all' 
       ? appointment.studentName === studentFilter
       : true;
     
@@ -234,7 +234,7 @@ const TeacherDashboard = () => {
                       <SelectValue placeholder="All students" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">All students</SelectItem>
+                      <SelectItem value="all">All students</SelectItem>
                       {studentNames.map((name) => (
                         <SelectItem key={name} value={name}>
                           {name}
